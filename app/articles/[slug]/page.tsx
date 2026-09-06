@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { articles } from "@/data/articles";
+// import { articles } from "@/data/articles";
+import { getArticleBySlug } from "@/lib/sitecore";
 
 interface PageProps {
   params: {
@@ -8,11 +9,8 @@ interface PageProps {
 }
 
 export default async function ArticlePage({ params }: PageProps) {
-    const { slug } = await params;
-  const article = articles.find(
-    (item) => item.slug === slug
-  );
-
+  const { slug } = await params;
+  const article = await getArticleBySlug(slug);
   if (!article) {
     return (
       <main className="min-h-screen p-10">
